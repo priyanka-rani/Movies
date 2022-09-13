@@ -2,8 +2,12 @@ package com.pri.movies.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.pri.movies.data.model.Movie
 import com.pri.movies.data.model.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,5 +37,20 @@ class SearchRepository @Inject constructor(
         return getApiData {
             apiService.getBatmanMovies().toResource()
         }
+    }
+
+    fun getSearchResultStream(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                enablePlaceholders = false,
+                pageSize = NETWORK_PAGE_SIZE,
+                prefetchDistance = 2
+            ),
+            pagingSourceFactory = { UnsplashPagingSource(apiService) }
+        ).flow
+    }
+
+    companion object {
+        private const val NETWORK_PAGE_SIZE = 10
     }
 }

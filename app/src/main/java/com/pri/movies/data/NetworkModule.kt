@@ -3,14 +3,12 @@ package com.pri.movies.data
 import android.content.Context
 import com.google.gson.GsonBuilder
 import com.pri.movies.BuildConfig
-import com.pri.movies.utils.NetworkUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,7 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val cacheSize = 10L * 1024 * 1024 // 10 MB
 
     @Provides
     @Singleton
@@ -35,7 +32,6 @@ object NetworkModule {
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .cache(Cache(context.cacheDir, cacheSize))
             .addInterceptor { chain ->
                 val original = chain.request()
 
@@ -47,21 +43,18 @@ object NetworkModule {
 
                 val request = original.newBuilder()
                     .url(url)
-                    .header(
-                        "Cache-Control",
-                        if (NetworkUtil.hasNetwork(context)) "public, max-age=" + 5
-                        else "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
-                    ).build()
+                    .build()
 
                 chain.proceed(request)
+
             }.apply {
                 if (BuildConfig.DEBUG)
                     addInterceptor(HttpLoggingInterceptor().apply {
                         level = HttpLoggingInterceptor.Level.BODY
                     })
-            }
-            .build()
+            }.build()
     }
+
 
     @Provides
     @Singleton

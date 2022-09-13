@@ -15,4 +15,10 @@ interface ApiService {
         @Query("s") s: String = "batman",
         @Query("y") year: String = "2022",
     ): SearchResponse
+
+    @GET(".")
+    suspend fun searchMovies(
+        @Query("page") page: Int,
+        @Query("s") s: String = "batman"
+    ): SearchResponse
 }

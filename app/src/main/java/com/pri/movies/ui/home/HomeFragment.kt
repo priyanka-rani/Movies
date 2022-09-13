@@ -39,8 +39,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 MoviePosters.map { SlideModel(imagePath = it, scaleType = ScaleTypes.FIT) }
             bannerView.setImageList(imageList)
 
-            tvBatmanSeeAll.setOnClickListener {  }
-            tvLatestSeeAll.setOnClickListener {  }
+            tvBatmanSeeAll.setOnClickListener { gotoDetailsPage() }
+            tvLatestSeeAll.setOnClickListener { gotoDetailsPage() }
 
             swipeRefreshLayout.setOnRefreshListener {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -61,19 +61,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             batmanMovies.observe(viewLifecycleOwner) {
                 it?.data?.let { movieList ->
                     batmanMovieAdapter.submitList(movieList)
-                } ?: kotlin.run {
-                    it?.message?.let { message ->
-                        showToast(message)
-                    }
                 }
             }
             latestMovies.observe(viewLifecycleOwner) {
                 it?.data?.let { movieList ->
                     latestMovieAdapter.submitList(movieList)
-                } ?: kotlin.run {
-                    it?.message?.let { message ->
-                        showToast(message)
-                    }
                 }
             }
             showProgress.observe(viewLifecycleOwner) {
@@ -86,6 +78,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun onMovieClick(movie: Movie) {
         // TODO: go to movie details page
+    }
+
+    private fun gotoDetailsPage() {
+        navigate(HomeFragmentDirections.actionHomeFragmentToListFragment())
     }
 
     companion object {

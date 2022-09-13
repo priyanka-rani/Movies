@@ -7,7 +7,10 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_movie_list.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/item_movie.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_movie_list.xml" value="0.221875" />
+        <entry key="app/src/main/res/layout/layout_pager_loading.xml" value="0.22083333333333333" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.24375" />
       </map>
     </option>

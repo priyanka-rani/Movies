@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
-        android:name="com.pri.movies.ui.details.MovieListFragment"
+        android:name="com.pri.movies.ui.listing.MovieListFragment"
         tools:layout="@layout/fragment_movie_list" />
 </navigation>

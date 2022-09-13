@@ -29,7 +29,7 @@ class MovieAdapter(private val onItemClick: (Movie) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                val item = getItem(adapterPosition)
+                val item = getItem(bindingAdapterPosition)
                 onItemClick(item)
             }
         }
