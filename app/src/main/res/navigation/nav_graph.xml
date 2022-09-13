@@ -7,22 +7,15 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.pri.movies.HomeFragment"
-        android:label="@string/first_fragment_label"
+        android:name="com.pri.movies.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_HomeFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.pri.movies.DetailsFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_details">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/HomeFragment" />
-    </fragment>
+        android:id="@+id/ListFragment"
+        android:name="com.pri.movies.ui.details.MovieListFragment"
+        tools:layout="@layout/fragment_movie_list" />
 </navigation>
