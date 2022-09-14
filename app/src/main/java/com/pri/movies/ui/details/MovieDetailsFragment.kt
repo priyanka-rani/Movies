@@ -1,13 +1,9 @@
 package com.pri.movies.ui.details
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -55,7 +51,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                                     tvDescription.text = plot
                                     tvSourceRottenTomatoes.text =
                                         "Rotten Tomatoes score: ${ratings?.getOrNull(0)?.value}"
-                                    tvImdbRating.text = "IMDB Rating: $imdbRating"
+                                    tvImdbRating.text = "IMDb Rating: $imdbRating"
                                     tvImdbVotes.text = "Votes $imdbVotes"
                                     tvCountry.text = "Country: $country"
                                     tvBoxOffice.text = "Box Office: $boxOffice"
@@ -103,7 +99,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     override fun onResume() {
         super.onResume()
-        hideSystemUi()
         if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer()
         }
@@ -132,17 +127,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             exoPlayer.release()
         }
         player = null
-    }
-
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        val window = requireActivity().window
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, binding.videoView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
     }
 
     override fun onDestroyView() {
