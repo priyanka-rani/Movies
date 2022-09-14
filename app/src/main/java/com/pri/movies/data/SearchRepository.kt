@@ -6,6 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.pri.movies.data.model.Movie
+import com.pri.movies.data.model.MovieDetailsResponse
 import com.pri.movies.data.model.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -46,8 +47,14 @@ class SearchRepository @Inject constructor(
                 pageSize = NETWORK_PAGE_SIZE,
                 prefetchDistance = 2
             ),
-            pagingSourceFactory = { UnsplashPagingSource(apiService) }
+            pagingSourceFactory = { MoviePagingSource(apiService) }
         ).flow
+    }
+
+    fun getMovieDetails(imdbId:String): LiveData<Resource<MovieDetailsResponse>> {
+        return getApiData {
+            apiService.getMovieDetails(imdbId).toResource()
+        }
     }
 
     companion object {

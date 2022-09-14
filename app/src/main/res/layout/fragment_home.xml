@@ -22,9 +22,7 @@
                 android:layout_height="200dp"
                 app:iss_auto_cycle="true"
                 app:iss_delay="0"
-                app:iss_error_image="@drawable/error"
                 app:iss_period="1000"
-                app:iss_placeholder="@drawable/placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

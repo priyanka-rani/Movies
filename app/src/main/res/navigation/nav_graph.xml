@@ -8,14 +8,36 @@
     <fragment
         android:id="@+id/HomeFragment"
         android:name="com.pri.movies.ui.home.HomeFragment"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_HomeFragment_to_ListFragment"
             app:destination="@id/ListFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
         android:name="com.pri.movies.ui.listing.MovieListFragment"
-        tools:layout="@layout/fragment_movie_list" />
+        tools:layout="@layout/fragment_movie_list"
+        android:label="{title}">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_ListFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.pri.movies.ui.details.MovieDetailsFragment"
+        tools:layout="@layout/fragment_movie_details"
+        android:label="{movie}">
+        <argument
+            android:name="movie"
+            app:argType="com.pri.movies.data.model.Movie" />
+
+    </fragment>
 </navigation>

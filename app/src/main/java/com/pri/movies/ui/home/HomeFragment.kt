@@ -39,8 +39,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 MoviePosters.map { SlideModel(imagePath = it, scaleType = ScaleTypes.FIT) }
             bannerView.setImageList(imageList)
 
-            tvBatmanSeeAll.setOnClickListener { gotoDetailsPage() }
-            tvLatestSeeAll.setOnClickListener { gotoDetailsPage() }
+            tvBatmanSeeAll.setOnClickListener { gotoDetailsPage(getString(R.string.batman_movie)) }
+            tvLatestSeeAll.setOnClickListener { gotoDetailsPage(getString(R.string.latest_movies)) }
 
             swipeRefreshLayout.setOnRefreshListener {
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -77,11 +77,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun onMovieClick(movie: Movie) {
-        // TODO: go to movie details page
+        navigate(
+            HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(
+                movie = movie
+            )
+        )
     }
 
-    private fun gotoDetailsPage() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToListFragment())
+    private fun gotoDetailsPage(title: String) {
+        navigate(HomeFragmentDirections.actionHomeFragmentToListFragment(title = title))
     }
 
     companion object {

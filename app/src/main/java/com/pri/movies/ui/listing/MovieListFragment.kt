@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenResumed
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pri.movies.data.model.Movie
 import com.pri.movies.databinding.FragmentMovieListBinding
@@ -56,11 +58,17 @@ class MovieListFragment : BaseFragment<FragmentMovieListBinding>() {
                 adapter.submitData(it)
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadStates ->
+                val showProgress = loadStates.refresh is LoadState.Loading
+                binding.progressBar.isVisible = showProgress
+            }
+        }
 
     }
 
     private fun onMovieClick(movie: Movie) {
-        // TODO: go to movie details page
+        navigate(MovieListFragmentDirections.actionListFragmentToMovieDetailsFragment(movie = movie))
     }
 
 }

@@ -1,5 +1,6 @@
 package com.pri.movies.data
 
+import com.pri.movies.data.model.MovieDetailsResponse
 import com.pri.movies.data.model.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -21,4 +22,9 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("s") s: String = "batman"
     ): SearchResponse
+
+    @GET(".")
+    suspend fun getMovieDetails(
+        @Query("i") imdbId: String
+    ): MovieDetailsResponse
 }

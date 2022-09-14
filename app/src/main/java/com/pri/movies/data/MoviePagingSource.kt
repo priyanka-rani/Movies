@@ -6,7 +6,7 @@ import com.pri.movies.data.model.Movie
 
 private const val STARTING_PAGE_INDEX = 1
 
-class UnsplashPagingSource(
+class MoviePagingSource(
     private val service: ApiService
 ) : PagingSource<Int, Movie>() {
 

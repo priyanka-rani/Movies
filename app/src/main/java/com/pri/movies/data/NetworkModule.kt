@@ -35,10 +35,9 @@ object NetworkModule {
             .addInterceptor { chain ->
                 val original = chain.request()
 
-                /* add api key and type to every request */
+                /* add api key to every request */
                 val url = original.url.newBuilder()
                     .addQueryParameter("apikey", BuildConfig.API_KEY)
-                    .addQueryParameter("type", "movie")
                     .build()
 
                 val request = original.newBuilder()
